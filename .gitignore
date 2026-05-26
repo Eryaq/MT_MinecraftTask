@@ -5,15 +5,15 @@
 # Recommended: add any editor/OS/tool-specific ignore rules from the Global/ templates as needed.
 # See: https://github.com/github/gitignore/tree/main/Global
 #
-.utmp/
-/[Ll]ibrary/
-/[Tt]emp/
-/[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
-/[Ll]ogs/
-/[Uu]ser[Ss]ettings/
-*.log
+MT_MinecraftTask/.utmp/
+MT_MinecraftTask/[Ll]ibrary/
+MT_MinecraftTask/[Tt]emp/
+MT_MinecraftTask/[Oo]bj/
+MT_MinecraftTask/[Bb]uild/
+MT_MinecraftTask/[Bb]uilds/
+MT_MinecraftTask/[Ll]ogs/
+MT_MinecraftTask/[Uu]ser[Ss]ettings/
+MT_MinecraftTask/*.log
 
 # By default unity supports Blender asset imports, *.blend1 blender files do not need to be commited to version control.
 *.blend1

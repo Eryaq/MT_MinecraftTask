@@ -36,17 +36,33 @@ namespace MT_MiencraftTask.World
 
         private void RefreshChunksAroundPlayer()
         {
+            HashSet<ChunkCoord> neededChunks = new();
+
             for (int x = -_viewDistance; x <= _viewDistance; x++)
             {
                 for (int z = -_viewDistance; z <= _viewDistance; z++)
                 {
                     ChunkCoord coord = new(_currentPlayerChunk.X + x, _currentPlayerChunk.Z + z);
 
-                    if (_loadedChunks.ContainsKey(coord))
-                        continue;
+                    neededChunks.Add(coord);
 
-                    CreateChunk(coord);
+                    if (!_loadedChunks.ContainsKey(coord))
+                        CreateChunk(coord);
                 }
+            }
+
+            List<ChunkCoord> chunksToUnload = new();
+
+            foreach (var loadedChunk in _loadedChunks)
+            {
+                if (!neededChunks.Contains(loadedChunk.Key))
+                    chunksToUnload.Add(loadedChunk.Key);
+            }
+
+            foreach (ChunkCoord coord in chunksToUnload)
+            {
+                Destroy(_loadedChunks[coord].gameObject);
+                _loadedChunks.Remove(coord);
             }
         }
 

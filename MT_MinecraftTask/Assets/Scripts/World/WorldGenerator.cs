@@ -5,18 +5,12 @@ namespace MT_MiencraftTask.World
 {
     public class WorldGenerator : MonoBehaviour
     {
-        [SerializeField] private Chunk _chunk;
         [SerializeField] private int _seed = 12345;
         [SerializeField] private float _noiseScale = 24f;
         [SerializeField] private int _baseHeight = 24;
         [SerializeField] private int _heightVariation = 18;
 
-        private void Start()
-        {
-            GenerateChunk(_chunk);
-        }
-
-        private void GenerateChunk(Chunk targetChunk)
+        public void GenerateChunk(Chunk targetChunk, ChunkCoord coord)
         {
             Random.InitState(_seed);
 
@@ -27,7 +21,10 @@ namespace MT_MiencraftTask.World
             {
                 for (int z = 0; z < Chunk.SizeZ; z++)
                 {
-                    float noise = Mathf.PerlinNoise((x + offsetX) / _noiseScale, (z + offsetZ) / _noiseScale);
+                    int worldX = coord.X * Chunk.SizeX + x;
+                    int worldZ = coord.Z * Chunk.SizeZ + z;
+
+                    float noise = Mathf.PerlinNoise((worldX + offsetX) / _noiseScale, (worldZ + offsetZ) / _noiseScale);
 
                     int height = _baseHeight + Mathf.RoundToInt(noise * _heightVariation);
                     height = Mathf.Clamp(height, 0, Chunk.SizeY - 1);

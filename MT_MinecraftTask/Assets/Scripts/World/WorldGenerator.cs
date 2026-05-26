@@ -10,13 +10,19 @@ namespace MT_MiencraftTask.World
         [SerializeField] private int _baseHeight = 24;
         [SerializeField] private int _heightVariation = 18;
 
+        private float _offsetX;
+        private float _offsetZ;
+
+        private void Awake()
+        {
+            System.Random random = new(_seed);
+
+            _offsetX = random.Next(-10000, 10000);
+            _offsetZ = random.Next(-10000, 10000);
+        }
+
         public void GenerateChunk(Chunk targetChunk, ChunkCoord coord)
         {
-            Random.InitState(_seed);
-
-            float offsetX = Random.Range(-10000f, 10000f);
-            float offsetZ = Random.Range(-10000f, 10000f);
-
             for (int x = 0; x < Chunk.SizeX; x++)
             {
                 for (int z = 0; z < Chunk.SizeZ; z++)
@@ -24,7 +30,7 @@ namespace MT_MiencraftTask.World
                     int worldX = coord.X * Chunk.SizeX + x;
                     int worldZ = coord.Z * Chunk.SizeZ + z;
 
-                    float noise = Mathf.PerlinNoise((worldX + offsetX) / _noiseScale, (worldZ + offsetZ) / _noiseScale);
+                    float noise = Mathf.PerlinNoise((worldX + _offsetX) / _noiseScale, (worldZ + _offsetZ) / _noiseScale);
 
                     int height = _baseHeight + Mathf.RoundToInt(noise * _heightVariation);
                     height = Mathf.Clamp(height, 0, Chunk.SizeY - 1);

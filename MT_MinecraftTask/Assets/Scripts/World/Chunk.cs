@@ -34,6 +34,8 @@ namespace MT_MiencraftTask.World
             MeshCollider = GetComponent<MeshCollider>();
 
             _blocks = new EBlockType[SizeX, SizeY, SizeZ];
+
+            SetupMaterials();
         }
 
         public void Initialize(ChunkCoord coord, WorldManager world)
@@ -112,13 +114,6 @@ namespace MT_MiencraftTask.World
 
             MeshFilter.sharedMesh = _mesh;
             MeshCollider.sharedMesh = _mesh;
-
-            MeshRenderer.sharedMaterials = new[]
-            {
-                _blockDatabase.Get(EBlockType.Stone).Material,
-                _blockDatabase.Get(EBlockType.Grass).Material,
-                _blockDatabase.Get(EBlockType.Snow).Material
-            };
         }
 
         public bool IsWithinBuildLimits(int y)
@@ -155,6 +150,16 @@ namespace MT_MiencraftTask.World
                 Destroy(_mesh);
                 _mesh = null;
             }
+        }
+
+        private void SetupMaterials()
+        {
+            MeshRenderer.sharedMaterials = new[]
+            {
+                _blockDatabase.Get(EBlockType.Stone).Material,
+                _blockDatabase.Get(EBlockType.Grass).Material,
+                _blockDatabase.Get(EBlockType.Snow).Material
+            };
         }
     }
 }

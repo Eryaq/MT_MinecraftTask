@@ -20,6 +20,8 @@ namespace MT_MiencraftTask.World
         public MeshFilter MeshFilter { get; private set; }
         public MeshRenderer MeshRenderer { get; private set; }
         public MeshCollider MeshCollider { get; private set; }
+        public ChunkCoord Coord { get; private set; }
+        public WorldManager World { get; private set; }
 
         private void Awake()
         {
@@ -28,6 +30,12 @@ namespace MT_MiencraftTask.World
             MeshCollider = GetComponent<MeshCollider>();
 
             _blocks = new EBlockType[SizeX, SizeY, SizeZ];
+        }
+
+        public void Initialize(ChunkCoord coord, WorldManager world)
+        {
+            Coord = coord;
+            World = world;
         }
 
         public EBlockType GetBlock(int x, int y, int z)
@@ -58,7 +66,9 @@ namespace MT_MiencraftTask.World
                 return false;
 
             _blocks[localPosition.x, localPosition.y, localPosition.z] = type;
-            RebuildMesh();
+
+            World.RebuildChunkAndAffectedNeighbors(this, localPosition);
+
             return true;
         }
 
@@ -92,6 +102,11 @@ namespace MT_MiencraftTask.World
         public bool IsWithinBuildLimits(int y)
         {
             return y >= MinBuildY && y <= MaxBuildY;
+        }
+
+        public Vector3Int LocalToWorldBlockPosition(Vector3Int localPosition)
+        {
+            return new Vector3Int(Coord.X * SizeX + localPosition.x, localPosition.y, Coord.Z * SizeZ + localPosition.z);
         }
     }
 }

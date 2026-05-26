@@ -41,9 +41,20 @@ namespace MT_MiencraftTask.World
 
                         for (int i = 0; i < Directions.Length; i++)
                         {
-                            Vector3Int neighborPos = blockPos + Directions[i];
+                            Vector3Int neighborLocalPos = blockPos + Directions[i];
+                            EBlockType neighborBlock;
 
-                            if (chunk.GetBlock(neighborPos.x, neighborPos.y, neighborPos.z) == EBlockType.Air)
+                            if (chunk.IsInside(neighborLocalPos.x, neighborLocalPos.y, neighborLocalPos.z))
+                            {
+                                neighborBlock = chunk.GetBlock(neighborLocalPos);
+                            }
+                            else
+                            {
+                                Vector3Int worldBlockPos = chunk.LocalToWorldBlockPosition(neighborLocalPos);
+                                neighborBlock = chunk.World.GetBlockWorld(worldBlockPos);
+                            }
+
+                            if (neighborBlock == EBlockType.Air)
                             {
                                 AddFace(vertices, targetTriangles, blockPos, Directions[i]);
                             }

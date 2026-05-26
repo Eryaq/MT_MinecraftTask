@@ -79,9 +79,7 @@ namespace MT_MiencraftTask.World
 
         public bool IsInside(int x, int y, int z)
         {
-            return x >= 0 && x < SizeX &&
-                   y >= 0 && y < SizeY &&
-                   z >= 0 && z < SizeZ;
+            return x >= 0 && x < SizeX && y >= 0 && y < SizeY && z >= 0 && z < SizeZ;
         }
 
         public void RebuildMesh()

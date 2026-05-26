@@ -1,0 +1,10 @@
+namespace MT_MiencraftTask.Voxels
+{
+    public enum EBlockType : byte
+    {
+        Air = 0,
+        Stone = 1,
+        Grass = 2,
+        Snow = 3,
+    }
+}

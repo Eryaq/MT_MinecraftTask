@@ -23,6 +23,7 @@ namespace MT_MiencraftTask.World
 
         private readonly Dictionary<ChunkCoord, Chunk> _loadedChunks = new();
         private readonly Dictionary<Vector3Int, EBlockType> _worldModifications = new();
+        private readonly Queue<Chunk> _chunkPool = new();
 
         private ChunkCoord _currentPlayerChunk;
 
@@ -101,24 +102,49 @@ namespace MT_MiencraftTask.World
 
             foreach (ChunkCoord coord in chunksToUnload)
             {
-                Destroy(_loadedChunks[coord].gameObject);
+                ReleaseChunk(_loadedChunks[coord]);
                 _loadedChunks.Remove(coord);
             }
         }
 
         private void CreateChunk(ChunkCoord coord)
         {
-            Chunk chunk = Instantiate(_chunkPrefab, coord.WorldPosition, Quaternion.identity, transform);
+            Chunk chunk = GetChunkFromPool();
 
+            chunk.transform.SetParent(transform);
+            chunk.transform.position = coord.WorldPosition;
+            chunk.transform.rotation = Quaternion.identity;
             chunk.name = $"Chunk_{coord.X}_{coord.Z}";
+            chunk.gameObject.SetActive(true);
 
             chunk.Initialize(coord, this);
+            chunk.ClearBlocks();
+
             _loadedChunks.Add(coord, chunk);
+
             _worldGenerator.GenerateChunk(chunk, coord);
             ApplyModificationsToChunk(chunk);
             chunk.RebuildMesh();
+
             RebuildChunkAndNeighbors(coord);
 
+        }
+
+        private void ReleaseChunk(Chunk chunk)
+        {
+            chunk.MeshFilter.sharedMesh = null;
+            chunk.MeshCollider.sharedMesh = null;
+
+            chunk.gameObject.SetActive(false);
+            _chunkPool.Enqueue(chunk);
+        }
+
+        private Chunk GetChunkFromPool()
+        {
+            if (_chunkPool.Count > 0)
+                return _chunkPool.Dequeue();
+
+            return Instantiate(_chunkPrefab);
         }
 
         private void RebuildChunkAndNeighbors(ChunkCoord centerCoord)

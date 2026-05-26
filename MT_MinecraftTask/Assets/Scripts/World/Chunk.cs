@@ -106,5 +106,19 @@ namespace MT_MiencraftTask.World
         {
             return new Vector3Int(Coord.X * SizeX + localPosition.x, localPosition.y, Coord.Z * SizeZ + localPosition.z);
         }
+
+        public void ClearBlocks()
+        {
+            for (int x = 0; x < SizeX; x++)
+            {
+                for (int y = 0; y < SizeY; y++)
+                {
+                    for (int z = 0; z < SizeZ; z++)
+                    {
+                        _blocks[x, y, z] = EBlockType.Air;
+                    }
+                }
+            }
+        }
     }
 }

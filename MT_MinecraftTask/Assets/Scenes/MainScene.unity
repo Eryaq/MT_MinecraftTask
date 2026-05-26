@@ -401,6 +401,23 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 965964655139722146, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
   m_PrefabInstance: {fileID: 5919024690730120137}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1737062622 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4515224677835695378, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+  m_PrefabInstance: {fileID: 5919024690730120137}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1737062627
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1737062622}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272cb36143a189c49ae697d66c014434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.PlayerBlockInventory
 --- !u!1001 &2063882723766374658
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -523,13 +540,20 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 996751008}
     - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _inventory
+      value: 
+      objectReference: {fileID: 1737062627}
+    - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
       propertyPath: _worldManager
       value: 
       objectReference: {fileID: 421208225}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4515224677835695378, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1737062627}
   m_SourcePrefab: {fileID: 100100000, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:

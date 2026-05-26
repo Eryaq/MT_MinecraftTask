@@ -17,6 +17,10 @@ namespace MT_MiencraftTask.Player
         [Header("Mining")]
         [SerializeField] private float _interactionDistance = 6f;
 
+        [Header("Inventory")]
+        [SerializeField] private PlayerBlockInventory _inventory;
+        [SerializeField] private EBlockType _selectedPlacementBlock = EBlockType.Grass;
+
         [SerializeField] private BlockDatabase _blockDatabase;
         [SerializeField] private WorldManager _worldManager;
 
@@ -82,33 +86,11 @@ namespace MT_MiencraftTask.Player
 
             if (_mineProgress >= miningTime)
             {
-                _worldManager.TrySetBlockWorld(worldBlockPosition, EBlockType.Air);
+                if (_worldManager.TrySetBlockWorld(worldBlockPosition, EBlockType.Air))
+                    _inventory.Add(blockType);
+
                 ResetMining();
             }
-        }
-
-        private bool TryGetTargetBlock(out Chunk chunk, out Vector3Int blockPosition)
-        {
-            chunk = null;
-            blockPosition = default;
-
-            Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
-
-            if (!Physics.Raycast(ray, out RaycastHit hit, _interactionDistance))
-                return false;
-
-            chunk = hit.collider.GetComponent<Chunk>();
-
-            if (chunk == null)
-                return false;
-
-            Vector3 localHitPoint = chunk.transform.InverseTransformPoint(hit.point);
-
-            Vector3 insideBlockPoint = localHitPoint - hit.normal * 0.01f;
-
-            blockPosition = Vector3Int.FloorToInt(insideBlockPoint);
-
-            return chunk.IsInside(blockPosition.x, blockPosition.y, blockPosition.z);
         }
 
         private bool TryGetTargetBlockWorldPosition(out Vector3Int worldBlockPosition)
@@ -150,32 +132,11 @@ namespace MT_MiencraftTask.Player
             if (_worldManager.GetBlockWorld(worldPosition) != EBlockType.Air)
                 return;
 
-            _worldManager.TrySetBlockWorld(worldPosition, EBlockType.Grass);
-        }
+            if (!_inventory.TryConsume(_selectedPlacementBlock))
+                return;
 
-        public bool TryGetPlacementPosition(out Chunk chunk, out Vector3Int blockPosition)
-        {
-            chunk = null;
-            blockPosition = default;
-
-            Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
-
-            if (!Physics.Raycast(ray, out RaycastHit hit, _interactionDistance))
-                return false;
-
-            chunk = hit.collider.GetComponent<Chunk>();
-
-            if (chunk == null)
-                return false;
-
-            Vector3 localHitPoint = chunk.transform.InverseTransformPoint(hit.point);
-            Vector3 localNormal = chunk.transform.InverseTransformDirection(hit.normal);
-
-            Vector3 outsideBlockPoint = localHitPoint + localNormal * 0.01f;
-
-            blockPosition = Vector3Int.FloorToInt(outsideBlockPoint);
-
-            return chunk.IsInside(blockPosition.x, blockPosition.y, blockPosition.z);
+            if (!_worldManager.TrySetBlockWorld(worldPosition, _selectedPlacementBlock))
+                _inventory.Add(_selectedPlacementBlock);
         }
 
         public bool TryGetPlacementWorldPosition(out Vector3Int worldBlockPosition)

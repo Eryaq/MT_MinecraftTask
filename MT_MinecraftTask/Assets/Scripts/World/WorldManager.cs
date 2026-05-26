@@ -132,9 +132,7 @@ namespace MT_MiencraftTask.World
 
         private void ReleaseChunk(Chunk chunk)
         {
-            chunk.MeshFilter.sharedMesh = null;
-            chunk.MeshCollider.sharedMesh = null;
-
+            chunk.ClearMesh();
             chunk.gameObject.SetActive(false);
             _chunkPool.Enqueue(chunk);
         }

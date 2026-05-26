@@ -17,6 +17,8 @@ namespace MT_MiencraftTask.World
 
         private EBlockType[,,] _blocks;
 
+        private Mesh _mesh;
+
         public MeshFilter MeshFilter { get; private set; }
         public MeshRenderer MeshRenderer { get; private set; }
         public MeshCollider MeshCollider { get; private set; }
@@ -84,10 +86,16 @@ namespace MT_MiencraftTask.World
 
         public void RebuildMesh()
         {
-            Mesh mesh = ChunkMeshBuilder.BuildMesh(this);
+            if (_mesh != null)
+            {
+                Destroy(_mesh);
+                _mesh = null;
+            }
 
-            MeshFilter.sharedMesh = mesh;
-            MeshCollider.sharedMesh = mesh;
+            _mesh = ChunkMeshBuilder.BuildMesh(this);
+
+            MeshFilter.sharedMesh = _mesh;
+            MeshCollider.sharedMesh = _mesh;
 
             MeshRenderer.sharedMaterials = new[]
             {
@@ -118,6 +126,18 @@ namespace MT_MiencraftTask.World
                         _blocks[x, y, z] = EBlockType.Air;
                     }
                 }
+            }
+        }
+
+        public void ClearMesh()
+        {
+            MeshFilter.sharedMesh = null;
+            MeshCollider.sharedMesh = null;
+
+            if (_mesh != null)
+            {
+                Destroy(_mesh);
+                _mesh = null;
             }
         }
     }

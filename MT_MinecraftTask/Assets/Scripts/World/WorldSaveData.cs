@@ -7,6 +7,7 @@ namespace MT_MiencraftTask
     [Serializable]
     public class WorldSaveData
     {
+        public int Seed;
         public List<WorldModification> Modifications = new();
     }
 }

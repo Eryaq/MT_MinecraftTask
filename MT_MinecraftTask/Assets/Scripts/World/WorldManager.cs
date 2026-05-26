@@ -19,6 +19,10 @@ namespace MT_MiencraftTask.World
         [SerializeField] private InputActionReference _saveWorldAction;
         [SerializeField] private InputActionReference _loadWorldAction;
 
+        [Header("Player")]
+        [SerializeField] private CharacterController _playerController;
+        [SerializeField] private float _playerRespawnHeightOffset = 3f;
+
         private const string SaveKey = "MinecraftDemo_WorldSave";
 
         private readonly Dictionary<ChunkCoord, Chunk> _loadedChunks = new();
@@ -219,6 +223,32 @@ namespace MT_MiencraftTask.World
                 _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X, chunk.Coord.Z + 1));
         }
 
+        private void MovePlayerAboveTerrain()
+        {
+            Vector3 playerPosition = _player.position;
+
+            int x = Mathf.FloorToInt(playerPosition.x);
+            int z = Mathf.FloorToInt(playerPosition.z);
+
+            for (int y = Chunk.MaxBuildY; y >= Chunk.MinBuildY; y--)
+            {
+                Vector3Int worldPosition = new(x, y, z);
+
+                if (GetBlockWorld(worldPosition) != EBlockType.Air)
+                {
+                    if (_playerController != null)
+                        _playerController.enabled = false;
+
+                    _player.position = new Vector3(x + 0.5f, y + 1f + _playerRespawnHeightOffset, z + 0.5f);
+
+                    if (_playerController != null)
+                        _playerController.enabled = true;
+
+                    return;
+                }
+            }
+        }
+
         #region LookUpMethods
 
         public bool TryGetChunk(ChunkCoord coord, out Chunk chunk)
@@ -291,19 +321,18 @@ namespace MT_MiencraftTask.World
         public void SaveWorld()
         {
             WorldSaveData saveData = new();
+            saveData.Seed = _worldGenerator.Seed;
 
             foreach (var modification in _worldModifications)
             {
-                saveData.Modifications.Add(
-                    new WorldModification(modification.Key, modification.Value)
-                );
+                saveData.Modifications.Add(new WorldModification(modification.Key, modification.Value));
             }
 
             string json = JsonUtility.ToJson(saveData);
             PlayerPrefs.SetString(SaveKey, json);
             PlayerPrefs.Save();
 
-            Debug.Log($"World saved. Modifications: {saveData.Modifications.Count}");
+            Debug.Log($"World saved. Seed: {saveData.Seed}, Modifications: {saveData.Modifications.Count}");
         }
 
         public void LoadWorld()
@@ -319,6 +348,8 @@ namespace MT_MiencraftTask.World
 
             _worldModifications.Clear();
 
+            _worldGenerator.InitializeSeed(saveData.Seed);
+
             foreach (WorldModification modification in saveData.Modifications)
             {
                 _worldModifications[modification.WorldPosition] = modification.BlockType;
@@ -331,7 +362,9 @@ namespace MT_MiencraftTask.World
                 chunk.RebuildMesh();
             }
 
-            Debug.Log($"World loaded. Modifications: {_worldModifications.Count}");
+            MovePlayerAboveTerrain();
+
+            Debug.Log($"World loaded. Seed: {saveData.Seed}, Modifications: {_worldModifications.Count}");
         }
 
         #endregion

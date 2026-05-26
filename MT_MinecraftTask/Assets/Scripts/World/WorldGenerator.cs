@@ -5,6 +5,7 @@ namespace MT_MiencraftTask.World
 {
     public class WorldGenerator : MonoBehaviour
     {
+        [SerializeField] private bool _randomizeSeedOnStart = true;
         [SerializeField] private int _seed = 12345;
         [SerializeField] private float _noiseScale = 24f;
         [SerializeField] private int _baseHeight = 24;
@@ -13,8 +14,20 @@ namespace MT_MiencraftTask.World
         private float _offsetX;
         private float _offsetZ;
 
+        public int Seed => _seed;
+
         private void Awake()
         {
+            if (_randomizeSeedOnStart)
+                _seed = Random.Range(int.MinValue, int.MaxValue);
+
+            InitializeSeed(_seed);
+        }
+
+        public void InitializeSeed(int seed)
+        {
+            _seed = seed;
+
             System.Random random = new(_seed);
 
             _offsetX = random.Next(-10000, 10000);

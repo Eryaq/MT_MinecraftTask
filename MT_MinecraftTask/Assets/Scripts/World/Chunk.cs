@@ -69,7 +69,7 @@ namespace MT_MiencraftTask.World
 
             _blocks[localPosition.x, localPosition.y, localPosition.z] = type;
 
-            World.RebuildChunkAndAffectedNeighbors(this, localPosition);
+            World.MarkChunkAndAffectedNeighborsDirty(this, localPosition);
 
             return true;
         }

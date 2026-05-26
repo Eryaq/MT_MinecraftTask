@@ -24,6 +24,7 @@ namespace MT_MiencraftTask.World
         private readonly Dictionary<ChunkCoord, Chunk> _loadedChunks = new();
         private readonly Dictionary<Vector3Int, EBlockType> _worldModifications = new();
         private readonly Queue<Chunk> _chunkPool = new();
+        private readonly HashSet<ChunkCoord> _dirtyChunks = new();
 
         private ChunkCoord _currentPlayerChunk;
 
@@ -64,6 +65,25 @@ namespace MT_MiencraftTask.World
 
             _currentPlayerChunk = newPlayerChunk;
             RefreshChunksAroundPlayer();
+        }
+
+        private void LateUpdate()
+        {
+            RebuildDirtyChunks();
+        }
+
+        private void RebuildDirtyChunks()
+        {
+            if (_dirtyChunks.Count == 0)
+                return;
+
+            foreach (ChunkCoord coord in _dirtyChunks)
+            {
+                if (_loadedChunks.TryGetValue(coord, out Chunk chunk))
+                    chunk.RebuildMesh();
+            }
+
+            _dirtyChunks.Clear();
         }
 
         private void HandleSaveLoadInput()
@@ -180,6 +200,23 @@ namespace MT_MiencraftTask.World
         {
             if (_loadedChunks.TryGetValue(coord, out Chunk chunk))
                 chunk.RebuildMesh();
+        }
+
+        public void MarkChunkAndAffectedNeighborsDirty(Chunk chunk, Vector3Int changedLocalPosition)
+        {
+            _dirtyChunks.Add(chunk.Coord);
+
+            if (changedLocalPosition.x == 0)
+                _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X - 1, chunk.Coord.Z));
+
+            if (changedLocalPosition.x == Chunk.SizeX - 1)
+                _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X + 1, chunk.Coord.Z));
+
+            if (changedLocalPosition.z == 0)
+                _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X, chunk.Coord.Z - 1));
+
+            if (changedLocalPosition.z == Chunk.SizeZ - 1)
+                _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X, chunk.Coord.Z + 1));
         }
 
         #region LookUpMethods

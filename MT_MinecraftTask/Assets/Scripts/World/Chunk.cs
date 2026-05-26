@@ -12,6 +12,9 @@ namespace MT_MiencraftTask.World
         public const int SizeY = 64;
         public const int SizeZ = 16;
 
+        public const int MinBuildY = 0;
+        public const int MaxBuildY = SizeY - 1;
+
         private EBlockType[,,] _blocks;
 
         public MeshFilter MeshFilter { get; private set; }
@@ -48,6 +51,12 @@ namespace MT_MiencraftTask.World
             if (!IsInside(localPosition.x, localPosition.y, localPosition.z))
                 return false;
 
+            if (!IsWithinBuildLimits(localPosition.y))
+                return false;
+
+            if (localPosition.y == MinBuildY && type == EBlockType.Air)
+                return false;
+
             _blocks[localPosition.x, localPosition.y, localPosition.z] = type;
             RebuildMesh();
             return true;
@@ -78,6 +87,11 @@ namespace MT_MiencraftTask.World
                 _blockDatabase.Get(EBlockType.Grass).Material,
                 _blockDatabase.Get(EBlockType.Snow).Material
             };
+        }
+
+        public bool IsWithinBuildLimits(int y)
+        {
+            return y >= MinBuildY && y <= MaxBuildY;
         }
     }
 }

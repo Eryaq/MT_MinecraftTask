@@ -64,6 +64,12 @@ namespace MT_MiencraftTask.Player
 
             float miningTime = GetMiningTime(blockType);
 
+            if (blockPosition.y == Chunk.MinBuildY)
+            {
+                ResetMining();
+                return;
+            }
+
             _mineProgress += Time.deltaTime;
 
             if (_mineProgress >= miningTime)
@@ -105,13 +111,16 @@ namespace MT_MiencraftTask.Player
             if (!TryGetPlacementPosition(out Chunk chunk, out Vector3Int placePosition))
                 return;
 
+            if (!chunk.IsWithinBuildLimits(placePosition.y))
+                return;
+
             if (chunk.GetBlock(placePosition) != EBlockType.Air)
                 return;
 
             chunk.TrySetBlock(placePosition, EBlockType.Grass);
         }
 
-        private bool TryGetPlacementPosition(out Chunk chunk, out Vector3Int blockPosition)
+        public bool TryGetPlacementPosition(out Chunk chunk, out Vector3Int blockPosition)
         {
             chunk = null;
             blockPosition = default;

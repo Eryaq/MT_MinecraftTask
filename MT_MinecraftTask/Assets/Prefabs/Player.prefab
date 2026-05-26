@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 3794032812249908567}
   - component: {fileID: 7899844675808718533}
   - component: {fileID: 5884010746326129012}
+  - component: {fileID: 5219882654164877625}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -235,6 +236,20 @@ MonoBehaviour:
   _mineAction: {fileID: -8988080740392008953, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _placeAction: {fileID: 1037058831921611125, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _interactionDistance: 6
+--- !u!114 &5219882654164877625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515224677835695378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bc66ac6b79971741869c5bc5705d27a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.BlockPlacementPreview
+  _interactor: {fileID: 5884010746326129012}
+  _previewObject: {fileID: 0}
 --- !u!1 &5306048949626605176
 GameObject:
   m_ObjectHideFlags: 0

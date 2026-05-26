@@ -144,6 +144,18 @@ namespace MT_MiencraftTask.World
             return chunk.GetBlock(localPosition);
         }
 
+        public bool TrySetBlockWorld(Vector3Int worldPosition, EBlockType type)
+        {
+            ChunkCoord coord = ChunkCoord.FromWorldPosition(worldPosition);
+
+            if (!_loadedChunks.TryGetValue(coord, out Chunk chunk))
+                return false;
+
+            Vector3Int localPosition = WorldToLocalBlockPosition(worldPosition);
+
+            return chunk.TrySetBlock(localPosition, type);
+        }
+
         public static Vector3Int WorldToLocalBlockPosition(Vector3Int worldPosition)
         {
             int localX = Mod(worldPosition.x, Chunk.SizeX);

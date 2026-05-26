@@ -246,6 +246,17 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!114 &421208225 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6430884861683617901, guid: 270e64c3d510fe141bade14329875209, type: 3}
+  m_PrefabInstance: {fileID: 2063882723766374658}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0345c4609e4c56a4cbb230661bd743a3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.World.WorldManager
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,9 +515,17 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5219882654164877625, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _worldManager
+      value: 
+      objectReference: {fileID: 421208225}
+    - target: {fileID: 5219882654164877625, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
       propertyPath: _previewObject
       value: 
       objectReference: {fileID: 996751008}
+    - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _worldManager
+      value: 
+      objectReference: {fileID: 421208225}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

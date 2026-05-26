@@ -17,8 +17,11 @@ namespace MT_MiencraftTask.Player
         [Header("Mining")]
         [SerializeField] private float _interactionDistance = 6f;
 
-        private Chunk _targetChunk;
-        private Vector3Int _targetBlockPosition;
+        [SerializeField] private BlockDatabase _blockDatabase;
+        [SerializeField] private WorldManager _worldManager;
+
+        private Vector3Int _targetWorldBlockPosition;
+        private bool _hasTargetBlock;
         private float _mineProgress;
 
         private void OnEnable()
@@ -47,34 +50,39 @@ namespace MT_MiencraftTask.Player
                 return;
             }
 
-            if (!TryGetTargetBlock(out Chunk chunk, out Vector3Int blockPosition))
+            if (!TryGetTargetBlockWorldPosition(out Vector3Int worldBlockPosition))
             {
                 ResetMining();
                 return;
             }
 
-            if (chunk != _targetChunk || blockPosition != _targetBlockPosition)
+            EBlockType blockType = _worldManager.GetBlockWorld(worldBlockPosition);
+
+            if (blockType == EBlockType.Air)
             {
-                _targetChunk = chunk;
-                _targetBlockPosition = blockPosition;
+                ResetMining();
+                return;
+            }
+
+            if (worldBlockPosition.y == Chunk.MinBuildY)
+            {
+                ResetMining();
+                return;
+            }
+
+            if (!_hasTargetBlock || worldBlockPosition != _targetWorldBlockPosition)
+            {
+                _targetWorldBlockPosition = worldBlockPosition;
+                _hasTargetBlock = true;
                 _mineProgress = 0f;
             }
 
-            EBlockType blockType = chunk.GetBlock(blockPosition);
-
-            float miningTime = GetMiningTime(blockType);
-
-            if (blockPosition.y == Chunk.MinBuildY)
-            {
-                ResetMining();
-                return;
-            }
-
+            float miningTime = _blockDatabase.GetMiningTime(blockType);
             _mineProgress += Time.deltaTime;
 
             if (_mineProgress >= miningTime)
             {
-                chunk.TrySetBlock(blockPosition, EBlockType.Air);
+                _worldManager.TrySetBlockWorld(worldBlockPosition, EBlockType.Air);
                 ResetMining();
             }
         }
@@ -103,21 +111,46 @@ namespace MT_MiencraftTask.Player
             return chunk.IsInside(blockPosition.x, blockPosition.y, blockPosition.z);
         }
 
+        private bool TryGetTargetBlockWorldPosition(out Vector3Int worldBlockPosition)
+        {
+            worldBlockPosition = default;
+
+            Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+
+            if (!Physics.Raycast(ray, out RaycastHit hit, _interactionDistance))
+                return false;
+
+            Chunk chunk = hit.collider.GetComponent<Chunk>();
+
+            if (chunk == null)
+                return false;
+
+            Vector3 localHitPoint = chunk.transform.InverseTransformPoint(hit.point);
+            Vector3 localNormal = chunk.transform.InverseTransformDirection(hit.normal);
+
+            Vector3 insideBlockPoint = localHitPoint - localNormal * 0.01f;
+            Vector3Int localBlockPosition = Vector3Int.FloorToInt(insideBlockPoint);
+
+            worldBlockPosition = chunk.LocalToWorldBlockPosition(localBlockPosition);
+
+            return true;
+        }
+
         private void HandlePlacement()
         {
             if (!_placeAction.action.WasPressedThisFrame())
                 return;
 
-            if (!TryGetPlacementPosition(out Chunk chunk, out Vector3Int placePosition))
+            if (!TryGetPlacementWorldPosition(out Vector3Int worldPosition))
                 return;
 
-            if (!chunk.IsWithinBuildLimits(placePosition.y))
+            if (worldPosition.y < Chunk.MinBuildY || worldPosition.y > Chunk.MaxBuildY)
                 return;
 
-            if (chunk.GetBlock(placePosition) != EBlockType.Air)
+            if (_worldManager.GetBlockWorld(worldPosition) != EBlockType.Air)
                 return;
 
-            chunk.TrySetBlock(placePosition, EBlockType.Grass);
+            _worldManager.TrySetBlockWorld(worldPosition, EBlockType.Grass);
         }
 
         public bool TryGetPlacementPosition(out Chunk chunk, out Vector3Int blockPosition)
@@ -145,21 +178,35 @@ namespace MT_MiencraftTask.Player
             return chunk.IsInside(blockPosition.x, blockPosition.y, blockPosition.z);
         }
 
-        private float GetMiningTime(EBlockType type)
+        public bool TryGetPlacementWorldPosition(out Vector3Int worldBlockPosition)
         {
-            return type switch
-            {
-                EBlockType.Stone => 2.0f,
-                EBlockType.Grass => 1.0f,
-                EBlockType.Snow => 0.5f,
-                _ => 1.0f
-            };
+            worldBlockPosition = default;
+
+            Ray ray = new Ray(_camera.transform.position, _camera.transform.forward);
+
+            if (!Physics.Raycast(ray, out RaycastHit hit, _interactionDistance))
+                return false;
+
+            Chunk chunk = hit.collider.GetComponent<Chunk>();
+
+            if (chunk == null)
+                return false;
+
+            Vector3 localHitPoint = chunk.transform.InverseTransformPoint(hit.point);
+            Vector3 localNormal = chunk.transform.InverseTransformDirection(hit.normal);
+
+            Vector3 outsideBlockPoint = localHitPoint + localNormal * 0.01f;
+            Vector3Int localBlockPosition = Vector3Int.FloorToInt(outsideBlockPoint);
+
+            worldBlockPosition = chunk.LocalToWorldBlockPosition(localBlockPosition);
+
+            return true;
         }
 
         private void ResetMining()
         {
-            _targetChunk = null;
-            _targetBlockPosition = default;
+            _targetWorldBlockPosition = default;
+            _hasTargetBlock = false;
             _mineProgress = 0f;
         }
     }

@@ -30,5 +30,15 @@ namespace MT_MiencraftTask.Voxels
 
             return result;
         }
+
+        public float GetMiningTime(EBlockType type)
+        {
+            BlockDefinition definition = Get(type);
+
+            if (definition == null)
+                return 1f;
+
+            return definition.MiningTime;
+        }
     }
 }

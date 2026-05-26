@@ -236,6 +236,7 @@ MonoBehaviour:
   _mineAction: {fileID: -8988080740392008953, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _placeAction: {fileID: 1037058831921611125, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _interactionDistance: 6
+  _blockDatabase: {fileID: 11400000, guid: 73add197ec00b3f48b4f3ae7959339dc, type: 2}
 --- !u!114 &5219882654164877625
 MonoBehaviour:
   m_ObjectHideFlags: 0

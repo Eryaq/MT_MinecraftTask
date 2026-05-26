@@ -16,13 +16,14 @@ namespace MT_MiencraftTask.World
             Vector3Int.down
         };
 
-        public static Mesh BuildMesh(Chunk chunk)
+        public static void BuildMesh(Chunk chunk, ChunkMeshData meshData)
         {
-            var vertices = new List<Vector3>();
+            meshData.Clear();
 
-            var stoneTriangles = new List<int>();
-            var grassTriangles = new List<int>();
-            var snowTriangles = new List<int>();
+            List<Vector3> vertices = meshData.Vertices;
+            List<int> stoneTriangles = meshData.StoneTriangles;
+            List<int> grassTriangles = meshData.GrassTriangles;
+            List<int> snowTriangles = meshData.SnowTriangles;
 
             for (int x = 0; x < Chunk.SizeX; x++)
             {
@@ -62,23 +63,6 @@ namespace MT_MiencraftTask.World
                     }
                 }
             }
-
-            var mesh = new Mesh
-            {
-                indexFormat = UnityEngine.Rendering.IndexFormat.UInt32,
-                subMeshCount = 3
-            };
-
-            mesh.SetVertices(vertices);
-
-            mesh.SetTriangles(stoneTriangles, 0);
-            mesh.SetTriangles(grassTriangles, 1);
-            mesh.SetTriangles(snowTriangles, 2);
-
-            mesh.RecalculateNormals();
-            mesh.RecalculateBounds();
-
-            return mesh;
         }
 
         private static List<int> GetTriangleList(EBlockType block, List<int> stoneTriangles, List<int> grassTriangles, List<int> snowTriangles)

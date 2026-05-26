@@ -19,6 +19,8 @@ namespace MT_MiencraftTask.World
 
         private Mesh _mesh;
 
+        private readonly ChunkMeshData _meshData = new();
+
         public MeshFilter MeshFilter { get; private set; }
         public MeshRenderer MeshRenderer { get; private set; }
         public MeshCollider MeshCollider { get; private set; }
@@ -92,7 +94,21 @@ namespace MT_MiencraftTask.World
                 _mesh = null;
             }
 
-            _mesh = ChunkMeshBuilder.BuildMesh(this);
+            ChunkMeshBuilder.BuildMesh(this, _meshData);
+
+            _mesh = new Mesh
+            {
+                indexFormat = UnityEngine.Rendering.IndexFormat.UInt32,
+                subMeshCount = 3
+            };
+
+            _mesh.SetVertices(_meshData.Vertices);
+            _mesh.SetTriangles(_meshData.StoneTriangles, 0);
+            _mesh.SetTriangles(_meshData.GrassTriangles, 1);
+            _mesh.SetTriangles(_meshData.SnowTriangles, 2);
+
+            _mesh.RecalculateNormals();
+            _mesh.RecalculateBounds();
 
             MeshFilter.sharedMesh = _mesh;
             MeshCollider.sharedMesh = _mesh;

@@ -1,12 +1,92 @@
 # MT_MinecraftTask
 
-# GenerateChunk
-- tato metoda by normálně obsahovala 3 cykly, to je to v pořádku, protože složitost by byla: SizeX * SizeZ * SizeY. U Chunku 16 x 16 x 64 je to 16 384 bloků, což je málo.
-- Rozhodl jsem se to ale i tak udělat lépe: Nemusím procházet celý y až do SizeY, když vím, že nad height je vzduch.
+# Unity Voxel Sandbox Demo
 
-# BuildMesh
-- tato metoda obsahuje dokonce až 4 cykly, taky to je v pořádku. Mesh builder musí projít a zjistit, které stěny jsou viditelné.
-- Složitost je zhruba počet bloků * 6 sousedů. Pro 16 x 16 x 64 to je 16 384 * 6 = 98 304 kontrol. To je pořád v pohodě, pokud se to neprovádí každý frame.
+Unity version: 6000.4.7f1
 
-Píšu to, protože se to může zdát neoptimalizovaný. U Voxelů se tomuto zas tak moc vyhnout nedá, takže optimalizaci řeším hlavně tím, že nedělám RebuildMesh každý update, ale jen po změně bloku / při vygenerování chunku.
-Navíc to řeším cestou meshe a ne GameObjectu, což už je věc sama o sobě lepší.
+## Overview
+
+This project is a small Minecraft-like voxel sandbox created as a technical interview task.
+
+The focus of the project is implementation quality and performance rather than gameplay complexity.
+
+## Features
+
+- Procedurally generated voxel world
+- Random world generation using Perlin noise
+- Chunk-based terrain system
+- Optimized mesh generation with visible-face culling
+- Multiple block types based on height:
+  - Stone
+  - Grass
+  - Snow
+- First-person player controller
+- Block mining with hold input
+- Block placement with grid snapping
+- Placement preview
+- World height/depth limits
+- Chunk loading and unloading around the player
+- Chunk object pooling
+- Save/load of world modifications
+- Inventory based on mined blocks
+
+## Optimization Notes
+
+The world is not built using one GameObject per block.
+
+Instead, blocks are stored as lightweight voxel data inside chunks. Each chunk generates a combined mesh containing only visible faces.
+
+This reduces:
+- GameObject count
+- Renderer count
+- Collider count
+- Draw calls
+- Runtime overhead
+
+Chunk meshes are rebuilt only when needed. Runtime block edits mark affected chunks as dirty and the actual mesh rebuild is batched.
+
+Chunks outside of the player view distance are pooled instead of destroyed.
+
+## Controls
+
+- WASD - Move
+- Mouse - Look
+- Space - Jump
+- Left Mouse Button Hold - Mine block
+- Right Mouse Button - Place block
+- F5 - Save world
+- F9 - Load world
+
+## Technical Architecture
+
+### Voxel Data
+
+Each block is represented by an enum value:
+
+```csharp
+public enum EBlockType : byte
+{
+    Air = 0,
+    Stone = 1,
+    Grass = 2,
+    Snow = 3
+}
+```
+
+Each chunk stores voxel data in a 3D array and owns one generated mesh.
+
+The chunk size is currently: 16 x 64 x 16
+
+## Mesh Generation
+
+The mesh generator iterates through voxel data and adds a face only when the neighbor block is air.
+
+Neighbor checks work across chunk borders using world-space block lookup.
+
+## Save System
+
+The save system does not serialize the full world.
+
+The terrain is regenerated from the saved seed and only player modifications are saved.
+
+This keeps the save data small and deterministic.

@@ -43,6 +43,21 @@ namespace MT_MiencraftTask.World
             _blocks[x, y, z] = type;
         }
 
+        public bool TrySetBlock(Vector3Int localPosition, EBlockType type)
+        {
+            if (!IsInside(localPosition.x, localPosition.y, localPosition.z))
+                return false;
+
+            _blocks[localPosition.x, localPosition.y, localPosition.z] = type;
+            RebuildMesh();
+            return true;
+        }
+
+        public EBlockType GetBlock(Vector3Int localPosition)
+        {
+            return GetBlock(localPosition.x, localPosition.y, localPosition.z);
+        }
+
         public bool IsInside(int x, int y, int z)
         {
             return x >= 0 && x < SizeX &&

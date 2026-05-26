@@ -150,6 +150,7 @@ GameObject:
   - component: {fileID: 7899844675808718533}
   - component: {fileID: 5884010746326129012}
   - component: {fileID: 5219882654164877625}
+  - component: {fileID: 2725474498314265986}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -236,7 +237,10 @@ MonoBehaviour:
   _mineAction: {fileID: -8988080740392008953, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _placeAction: {fileID: 1037058831921611125, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _interactionDistance: 6
+  _inventory: {fileID: 2725474498314265986}
+  _selectedPlacementBlock: 2
   _blockDatabase: {fileID: 11400000, guid: 73add197ec00b3f48b4f3ae7959339dc, type: 2}
+  _worldManager: {fileID: 0}
 --- !u!114 &5219882654164877625
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -251,6 +255,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.BlockPlacementPreview
   _interactor: {fileID: 5884010746326129012}
   _previewObject: {fileID: 0}
+  _worldManager: {fileID: 0}
+--- !u!114 &2725474498314265986
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515224677835695378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 272cb36143a189c49ae697d66c014434, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.PlayerBlockInventory
 --- !u!1 &5306048949626605176
 GameObject:
   m_ObjectHideFlags: 0

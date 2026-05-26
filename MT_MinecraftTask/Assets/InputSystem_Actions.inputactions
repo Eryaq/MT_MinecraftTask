@@ -104,6 +104,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "SaveWorld",
+                    "type": "Button",
+                    "id": "3daab31c-6d7c-4d9f-8b07-baa8355ee40b",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "LoadWorld",
+                    "type": "Button",
+                    "id": "efc8eb62-c421-4bd2-8ebd-adb0d8a9c432",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -533,6 +551,28 @@
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Place",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "87b2e12a-527e-4561-a458-6d3e4955676d",
+                    "path": "<Keyboard>/f5",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SaveWorld",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df551bff-5210-4e0a-bf12-7656406ab08b",
+                    "path": "<Keyboard>/f9",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "LoadWorld",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

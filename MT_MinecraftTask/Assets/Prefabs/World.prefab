@@ -65,3 +65,5 @@ MonoBehaviour:
   _worldGenerator: {fileID: 3533070935843043002}
   _player: {fileID: 0}
   _viewDistance: 2
+  _saveWorldAction: {fileID: 339567645741012685, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _loadWorldAction: {fileID: -5872185732815405303, guid: 052faaac586de48259a63d0c4782560b, type: 3}

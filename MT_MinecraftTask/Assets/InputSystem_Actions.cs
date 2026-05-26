@@ -190,6 +190,24 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SaveWorld"",
+                    ""type"": ""Button"",
+                    ""id"": ""3daab31c-6d7c-4d9f-8b07-baa8355ee40b"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""LoadWorld"",
+                    ""type"": ""Button"",
+                    ""id"": ""efc8eb62-c421-4bd2-8ebd-adb0d8a9c432"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -619,6 +637,28 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";Gamepad"",
                     ""action"": ""Place"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""87b2e12a-527e-4561-a458-6d3e4955676d"",
+                    ""path"": ""<Keyboard>/f5"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SaveWorld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""df551bff-5210-4e0a-bf12-7656406ab08b"",
+                    ""path"": ""<Keyboard>/f9"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""LoadWorld"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1217,6 +1257,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Sprint = m_Player.FindAction("Sprint", throwIfNotFound: true);
         m_Player_Mine = m_Player.FindAction("Mine", throwIfNotFound: true);
         m_Player_Place = m_Player.FindAction("Place", throwIfNotFound: true);
+        m_Player_SaveWorld = m_Player.FindAction("SaveWorld", throwIfNotFound: true);
+        m_Player_LoadWorld = m_Player.FindAction("LoadWorld", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1321,6 +1363,8 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Sprint;
     private readonly InputAction m_Player_Mine;
     private readonly InputAction m_Player_Place;
+    private readonly InputAction m_Player_SaveWorld;
+    private readonly InputAction m_Player_LoadWorld;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1376,6 +1420,14 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/Place".
         /// </summary>
         public InputAction @Place => m_Wrapper.m_Player_Place;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SaveWorld".
+        /// </summary>
+        public InputAction @SaveWorld => m_Wrapper.m_Player_SaveWorld;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/LoadWorld".
+        /// </summary>
+        public InputAction @LoadWorld => m_Wrapper.m_Player_LoadWorld;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1435,6 +1487,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Place.started += instance.OnPlace;
             @Place.performed += instance.OnPlace;
             @Place.canceled += instance.OnPlace;
+            @SaveWorld.started += instance.OnSaveWorld;
+            @SaveWorld.performed += instance.OnSaveWorld;
+            @SaveWorld.canceled += instance.OnSaveWorld;
+            @LoadWorld.started += instance.OnLoadWorld;
+            @LoadWorld.performed += instance.OnLoadWorld;
+            @LoadWorld.canceled += instance.OnLoadWorld;
         }
 
         /// <summary>
@@ -1479,6 +1537,12 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @Place.started -= instance.OnPlace;
             @Place.performed -= instance.OnPlace;
             @Place.canceled -= instance.OnPlace;
+            @SaveWorld.started -= instance.OnSaveWorld;
+            @SaveWorld.performed -= instance.OnSaveWorld;
+            @SaveWorld.canceled -= instance.OnSaveWorld;
+            @LoadWorld.started -= instance.OnLoadWorld;
+            @LoadWorld.performed -= instance.OnLoadWorld;
+            @LoadWorld.canceled -= instance.OnLoadWorld;
         }
 
         /// <summary>
@@ -1856,6 +1920,20 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnPlace(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SaveWorld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSaveWorld(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "LoadWorld" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnLoadWorld(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

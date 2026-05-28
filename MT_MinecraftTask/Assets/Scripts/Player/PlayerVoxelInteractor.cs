@@ -34,6 +34,9 @@ namespace MT_MiencraftTask.Player
         public event System.Action SelectedBlockChanged;
 
         public EBlockType SelectedPlacementBlock => _selectedPlacementBlock;
+        public bool IsMining => _hasTargetBlock;
+        public float MiningProgress01 { get; private set; }
+        public EBlockType CurrentMiningBlock { get; private set; }
 
         private void OnEnable()
         {
@@ -97,6 +100,8 @@ namespace MT_MiencraftTask.Player
 
             float miningTime = _blockDatabase.GetMiningTime(blockType);
             _mineProgress += Time.deltaTime;
+            CurrentMiningBlock = blockType;
+            MiningProgress01 = Mathf.Clamp01(_mineProgress / miningTime);
 
             if (_mineProgress >= miningTime)
             {
@@ -183,6 +188,8 @@ namespace MT_MiencraftTask.Player
             _targetWorldBlockPosition = default;
             _hasTargetBlock = false;
             _mineProgress = 0f;
+            MiningProgress01 = 0f;
+            CurrentMiningBlock = EBlockType.Air;
         }
 
         private void HandleBlockSelection()

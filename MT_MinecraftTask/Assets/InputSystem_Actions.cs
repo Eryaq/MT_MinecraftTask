@@ -208,6 +208,33 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectStone"",
+                    ""type"": ""Button"",
+                    ""id"": ""59b4069b-7e86-4f09-bffa-2baa1687d69e"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectGrass"",
+                    ""type"": ""Button"",
+                    ""id"": ""6cc2e216-f2d2-4e05-8f93-f0f701a6ebe3"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SelectSnow"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b2e5a70-e752-4de5-b8b2-ffc621385cb8"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -659,6 +686,39 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""LoadWorld"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a7504ba-6462-4498-a224-47cf15a9b2dd"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectStone"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""63d2d12d-945c-4e4d-90de-24d2322ad11d"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectGrass"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""14751963-efce-4917-98a6-7606e2c5c6d7"",
+                    ""path"": ""<Keyboard>/3"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SelectSnow"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1259,6 +1319,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_Place = m_Player.FindAction("Place", throwIfNotFound: true);
         m_Player_SaveWorld = m_Player.FindAction("SaveWorld", throwIfNotFound: true);
         m_Player_LoadWorld = m_Player.FindAction("LoadWorld", throwIfNotFound: true);
+        m_Player_SelectStone = m_Player.FindAction("SelectStone", throwIfNotFound: true);
+        m_Player_SelectGrass = m_Player.FindAction("SelectGrass", throwIfNotFound: true);
+        m_Player_SelectSnow = m_Player.FindAction("SelectSnow", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1365,6 +1428,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Place;
     private readonly InputAction m_Player_SaveWorld;
     private readonly InputAction m_Player_LoadWorld;
+    private readonly InputAction m_Player_SelectStone;
+    private readonly InputAction m_Player_SelectGrass;
+    private readonly InputAction m_Player_SelectSnow;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1428,6 +1494,18 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// Provides access to the underlying input action "Player/LoadWorld".
         /// </summary>
         public InputAction @LoadWorld => m_Wrapper.m_Player_LoadWorld;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SelectStone".
+        /// </summary>
+        public InputAction @SelectStone => m_Wrapper.m_Player_SelectStone;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SelectGrass".
+        /// </summary>
+        public InputAction @SelectGrass => m_Wrapper.m_Player_SelectGrass;
+        /// <summary>
+        /// Provides access to the underlying input action "Player/SelectSnow".
+        /// </summary>
+        public InputAction @SelectSnow => m_Wrapper.m_Player_SelectSnow;
         /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
@@ -1493,6 +1571,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadWorld.started += instance.OnLoadWorld;
             @LoadWorld.performed += instance.OnLoadWorld;
             @LoadWorld.canceled += instance.OnLoadWorld;
+            @SelectStone.started += instance.OnSelectStone;
+            @SelectStone.performed += instance.OnSelectStone;
+            @SelectStone.canceled += instance.OnSelectStone;
+            @SelectGrass.started += instance.OnSelectGrass;
+            @SelectGrass.performed += instance.OnSelectGrass;
+            @SelectGrass.canceled += instance.OnSelectGrass;
+            @SelectSnow.started += instance.OnSelectSnow;
+            @SelectSnow.performed += instance.OnSelectSnow;
+            @SelectSnow.canceled += instance.OnSelectSnow;
         }
 
         /// <summary>
@@ -1543,6 +1630,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @LoadWorld.started -= instance.OnLoadWorld;
             @LoadWorld.performed -= instance.OnLoadWorld;
             @LoadWorld.canceled -= instance.OnLoadWorld;
+            @SelectStone.started -= instance.OnSelectStone;
+            @SelectStone.performed -= instance.OnSelectStone;
+            @SelectStone.canceled -= instance.OnSelectStone;
+            @SelectGrass.started -= instance.OnSelectGrass;
+            @SelectGrass.performed -= instance.OnSelectGrass;
+            @SelectGrass.canceled -= instance.OnSelectGrass;
+            @SelectSnow.started -= instance.OnSelectSnow;
+            @SelectSnow.performed -= instance.OnSelectSnow;
+            @SelectSnow.canceled -= instance.OnSelectSnow;
         }
 
         /// <summary>
@@ -1934,6 +2030,27 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnLoadWorld(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectStone" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectStone(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectGrass" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectGrass(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "SelectSnow" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnSelectSnow(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

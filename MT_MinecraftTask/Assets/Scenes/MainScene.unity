@@ -1026,6 +1026,18 @@ PrefabInstance:
       propertyPath: _worldManager
       value: 
       objectReference: {fileID: 421208225}
+    - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _selectSnowAction
+      value: 
+      objectReference: {fileID: -93752411056132984, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _selectGrassAction
+      value: 
+      objectReference: {fileID: -2476971771912902426, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: _selectStoneAction
+      value: 
+      objectReference: {fileID: 7929011909142832261, guid: 052faaac586de48259a63d0c4782560b, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -13,6 +13,9 @@ namespace MT_MiencraftTask.Player
         [Header("Input")]
         [SerializeField] private InputActionReference _mineAction;
         [SerializeField] private InputActionReference _placeAction;
+        [SerializeField] private InputActionReference _selectStoneAction;
+        [SerializeField] private InputActionReference _selectGrassAction;
+        [SerializeField] private InputActionReference _selectSnowAction;
 
         [Header("Mining")]
         [SerializeField] private float _interactionDistance = 6f;
@@ -36,16 +39,23 @@ namespace MT_MiencraftTask.Player
         {
             _mineAction.action.Enable();
             _placeAction.action.Enable();
+            _selectStoneAction.action.Enable();
+            _selectGrassAction.action.Enable();
+            _selectSnowAction.action.Enable();
         }
 
         private void OnDisable()
         {
             _mineAction.action.Disable();
             _placeAction.action.Disable();
+            _selectStoneAction.action.Disable();
+            _selectGrassAction.action.Disable();
+            _selectSnowAction.action.Disable();
         }
 
         private void Update()
         {
+            HandleBlockSelection();
             HandleMining();
             HandlePlacement();
         }
@@ -173,6 +183,27 @@ namespace MT_MiencraftTask.Player
             _targetWorldBlockPosition = default;
             _hasTargetBlock = false;
             _mineProgress = 0f;
+        }
+
+        private void HandleBlockSelection()
+        {
+            if (_selectStoneAction.action.WasPressedThisFrame())
+                SetSelectedBlock(EBlockType.Stone);
+
+            if (_selectGrassAction.action.WasPressedThisFrame())
+                SetSelectedBlock(EBlockType.Grass);
+
+            if (_selectSnowAction.action.WasPressedThisFrame())
+                SetSelectedBlock(EBlockType.Snow);
+        }
+
+        private void SetSelectedBlock(EBlockType type)
+        {
+            if (_selectedPlacementBlock == type)
+                return;
+
+            _selectedPlacementBlock = type;
+            SelectedBlockChanged?.Invoke();
         }
     }
 }

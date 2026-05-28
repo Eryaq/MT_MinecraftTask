@@ -12,6 +12,9 @@ namespace MT_MiencraftTask.UI
 
         private void Update()
         {
+            if (_interactor == null || _root == null || _text == null)
+                return;
+
             bool isVisible = _interactor.IsMining && _interactor.MiningProgress01 > 0f;
 
             _root.SetActive(isVisible);

@@ -13,16 +13,23 @@ namespace MT_MiencraftTask.UI
 
         private void OnEnable()
         {
-            _inventory.InventoryChanged += Refresh;
-            _interactor.SelectedBlockChanged += Refresh;
+            if (_inventory != null)
+                _inventory.InventoryChanged += Refresh;
 
+            if (_interactor != null)
+                _interactor.SelectedBlockChanged += Refresh;
+
+            Refresh();
             Refresh();
         }
 
         private void OnDisable()
         {
-            _inventory.InventoryChanged -= Refresh;
-            _interactor.SelectedBlockChanged -= Refresh;
+            if (_inventory != null)
+                _inventory.InventoryChanged -= Refresh;
+
+            if (_interactor != null)
+                _interactor.SelectedBlockChanged -= Refresh;
         }
 
         private void Refresh()

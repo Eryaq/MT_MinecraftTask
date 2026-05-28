@@ -56,6 +56,11 @@ Chunks outside of the player view distance are pooled instead of destroyed.
 - Right Mouse Button - Place block
 - F5 - Save world
 - F9 - Load world
+- 1 - Select Stone
+- 2 - Select Grass
+- 3 - Select Snow
+- B - Toggle placement preview
+- F3 - Toggle debug overlay
 
 ## Technical Architecture
 

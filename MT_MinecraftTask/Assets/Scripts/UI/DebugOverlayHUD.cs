@@ -52,6 +52,9 @@ namespace MT_MiencraftTask.UI
 
         private void Refresh()
         {
+            if (_worldManager == null || _text == null)
+                return;
+
             float fps = 1f / _deltaTime;
 
             _text.text =

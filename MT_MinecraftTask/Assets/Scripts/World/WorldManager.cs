@@ -56,6 +56,7 @@ namespace MT_MiencraftTask.World
         {
             _currentPlayerChunk = ChunkCoord.FromWorldPosition(_player.position);
             RefreshChunksAroundPlayer();
+            MovePlayerAboveTerrain();
         }
 
         private void Update()

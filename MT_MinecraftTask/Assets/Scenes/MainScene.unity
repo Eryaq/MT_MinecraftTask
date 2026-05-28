@@ -1133,6 +1133,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2657176519367898198, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3794032812249908567, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: m_Radius
+      value: 0.35
+      objectReference: {fileID: 0}
     - target: {fileID: 4515224677835695378, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1165,6 +1173,10 @@ PrefabInstance:
       propertyPath: _selectStoneAction
       value: 
       objectReference: {fileID: 7929011909142832261, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 6353079128878239112, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

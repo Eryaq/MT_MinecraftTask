@@ -235,6 +235,15 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""TogglePreview"",
+                    ""type"": ""Button"",
+                    ""id"": ""b24efa5b-b56e-4e33-bdb0-999a4f50356f"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -719,6 +728,17 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""SelectSnow"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""be46921c-b01e-4d52-8b63-e422033d9f62"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""TogglePreview"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1322,6 +1342,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         m_Player_SelectStone = m_Player.FindAction("SelectStone", throwIfNotFound: true);
         m_Player_SelectGrass = m_Player.FindAction("SelectGrass", throwIfNotFound: true);
         m_Player_SelectSnow = m_Player.FindAction("SelectSnow", throwIfNotFound: true);
+        m_Player_TogglePreview = m_Player.FindAction("TogglePreview", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1431,6 +1452,7 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_SelectStone;
     private readonly InputAction m_Player_SelectGrass;
     private readonly InputAction m_Player_SelectSnow;
+    private readonly InputAction m_Player_TogglePreview;
     /// <summary>
     /// Provides access to input actions defined in input action map "Player".
     /// </summary>
@@ -1507,6 +1529,10 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// </summary>
         public InputAction @SelectSnow => m_Wrapper.m_Player_SelectSnow;
         /// <summary>
+        /// Provides access to the underlying input action "Player/TogglePreview".
+        /// </summary>
+        public InputAction @TogglePreview => m_Wrapper.m_Player_TogglePreview;
+        /// <summary>
         /// Provides access to the underlying input action map instance.
         /// </summary>
         public InputActionMap Get() { return m_Wrapper.m_Player; }
@@ -1580,6 +1606,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SelectSnow.started += instance.OnSelectSnow;
             @SelectSnow.performed += instance.OnSelectSnow;
             @SelectSnow.canceled += instance.OnSelectSnow;
+            @TogglePreview.started += instance.OnTogglePreview;
+            @TogglePreview.performed += instance.OnTogglePreview;
+            @TogglePreview.canceled += instance.OnTogglePreview;
         }
 
         /// <summary>
@@ -1639,6 +1668,9 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
             @SelectSnow.started -= instance.OnSelectSnow;
             @SelectSnow.performed -= instance.OnSelectSnow;
             @SelectSnow.canceled -= instance.OnSelectSnow;
+            @TogglePreview.started -= instance.OnTogglePreview;
+            @TogglePreview.performed -= instance.OnTogglePreview;
+            @TogglePreview.canceled -= instance.OnTogglePreview;
         }
 
         /// <summary>
@@ -2051,6 +2083,13 @@ public partial class @InputSystem_Actions: IInputActionCollection2, IDisposable
         /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
         /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
         void OnSelectSnow(InputAction.CallbackContext context);
+        /// <summary>
+        /// Method invoked when associated input action "TogglePreview" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+        /// </summary>
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+        /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+        void OnTogglePreview(InputAction.CallbackContext context);
     }
     /// <summary>
     /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.

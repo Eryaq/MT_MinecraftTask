@@ -1,6 +1,7 @@
 using MT_MiencraftTask.Voxels;
 using MT_MiencraftTask.World;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MT_MiencraftTask.Player
 {
@@ -10,8 +11,32 @@ namespace MT_MiencraftTask.Player
         [SerializeField] private GameObject _previewObject;
         [SerializeField] private WorldManager _worldManager;
 
+        [SerializeField] private InputActionReference _togglePreviewAction;
+        [SerializeField] private bool _isPreviewEnabled = true;
+
+        private void OnEnable()
+        {
+            _togglePreviewAction.action.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _togglePreviewAction.action.Disable();
+        }
+
         private void Update()
         {
+            if (_togglePreviewAction.action.WasPressedThisFrame())
+            {
+                _isPreviewEnabled = !_isPreviewEnabled;
+
+                if (!_isPreviewEnabled)
+                    _previewObject.SetActive(false);
+            }
+
+            if (!_isPreviewEnabled)
+                return;
+
             if (!_interactor.TryGetPlacementWorldPosition(out Vector3Int worldPosition))
             {
                 _previewObject.SetActive(false);

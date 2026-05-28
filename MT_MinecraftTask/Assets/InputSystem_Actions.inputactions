@@ -149,6 +149,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "TogglePreview",
+                    "type": "Button",
+                    "id": "b24efa5b-b56e-4e33-bdb0-999a4f50356f",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -633,6 +642,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "SelectSnow",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "be46921c-b01e-4d52-8b63-e422033d9f62",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "TogglePreview",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

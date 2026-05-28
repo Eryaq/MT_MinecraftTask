@@ -1,6 +1,7 @@
 using MT_MiencraftTask.World;
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace MT_MiencraftTask
 {
@@ -9,5 +10,8 @@ namespace MT_MiencraftTask
     {
         public int Seed;
         public List<WorldModification> Modifications = new();
+        public Vector3 PlayerPosition;
+        public Vector2 PlayerLookRotation;
+        public Vector3 PlayerEulerAngles;
     }
 }

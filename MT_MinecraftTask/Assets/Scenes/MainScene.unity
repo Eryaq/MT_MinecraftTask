@@ -886,6 +886,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e5bbc409b2046a4b98fc669500b3b7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.PlayerVoxelInteractor
+--- !u!143 &1089597847 stripped
+CharacterController:
+  m_CorrespondingSourceObject: {fileID: 3794032812249908567, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
+  m_PrefabInstance: {fileID: 5919024690730120137}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1439340258
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,6 +1392,14 @@ PrefabInstance:
       propertyPath: _player
       value: 
       objectReference: {fileID: 1089597842}
+    - target: {fileID: 6430884861683617901, guid: 270e64c3d510fe141bade14329875209, type: 3}
+      propertyPath: _viewDistance
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6430884861683617901, guid: 270e64c3d510fe141bade14329875209, type: 3}
+      propertyPath: _playerController
+      value: 
+      objectReference: {fileID: 1089597847}
     - target: {fileID: 7469205594647191069, guid: 270e64c3d510fe141bade14329875209, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0

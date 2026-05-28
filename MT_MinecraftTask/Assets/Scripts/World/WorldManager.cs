@@ -13,7 +13,7 @@ namespace MT_MiencraftTask.World
         [SerializeField] private Transform _player;
 
         [Header("Chunks")]
-        [SerializeField] private int _viewDistance = 2;
+        [SerializeField] private int _viewDistance = 3;
 
         [Header("Input")]
         [SerializeField] private InputActionReference _saveWorldAction;
@@ -118,6 +118,9 @@ namespace MT_MiencraftTask.World
             {
                 for (int z = -_viewDistance; z <= _viewDistance; z++)
                 {
+                    if (x * x + z * z > _viewDistance * _viewDistance)
+                        continue;
+
                     ChunkCoord coord = new(_currentPlayerChunk.X + x, _currentPlayerChunk.Z + z);
 
                     neededChunks.Add(coord);
@@ -333,6 +336,8 @@ namespace MT_MiencraftTask.World
         {
             WorldSaveData saveData = new();
             saveData.Seed = _worldGenerator.Seed;
+            saveData.PlayerPosition = _player.position;
+            saveData.PlayerEulerAngles = _player.eulerAngles;
 
             foreach (var modification in _worldModifications)
             {
@@ -357,6 +362,11 @@ namespace MT_MiencraftTask.World
             string json = PlayerPrefs.GetString(SaveKey);
             WorldSaveData saveData = JsonUtility.FromJson<WorldSaveData>(json);
 
+            _playerController.enabled = false;
+            _player.position = saveData.PlayerPosition;
+            _player.eulerAngles = saveData.PlayerEulerAngles;
+            _playerController.enabled = true;
+
             _worldModifications.Clear();
 
             _worldGenerator.InitializeSeed(saveData.Seed);
@@ -373,7 +383,8 @@ namespace MT_MiencraftTask.World
                 chunk.RebuildMesh();
             }
 
-            MovePlayerAboveTerrain();
+            if (GetBlockWorld(Vector3Int.FloorToInt(_player.position)) != EBlockType.Air)
+                MovePlayerAboveTerrain();
 
             Debug.Log($"World loaded. Seed: {saveData.Seed}, Modifications: {_worldModifications.Count}");
         }

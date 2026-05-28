@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe905558453675442b6f1f6d191aea6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.World.WorldGenerator
+  _randomizeSeedOnStart: 1
   _seed: 12345
   _noiseScale: 24
   _baseHeight: 24
@@ -64,6 +65,8 @@ MonoBehaviour:
   _chunkPrefab: {fileID: 2487627069085540538, guid: 9ce1a6132c4f4ef489ff013e7fe8e09d, type: 3}
   _worldGenerator: {fileID: 3533070935843043002}
   _player: {fileID: 0}
-  _viewDistance: 2
+  _viewDistance: 8
   _saveWorldAction: {fileID: 339567645741012685, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _loadWorldAction: {fileID: -5872185732815405303, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _playerController: {fileID: 0}
+  _playerRespawnHeightOffset: 3

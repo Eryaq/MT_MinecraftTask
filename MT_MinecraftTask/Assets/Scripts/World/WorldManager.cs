@@ -40,6 +40,13 @@ namespace MT_MiencraftTask.World
             new(1, 0)
         };
 
+        public int LoadedChunkCount => _loadedChunks.Count;
+        public int PooledChunkCount => _chunkPool.Count;
+        public int DirtyChunkCount => _dirtyChunks.Count;
+        public ChunkCoord CurrentPlayerChunk => _currentPlayerChunk;
+
+        public int TotalChunkRebuilds { get; private set; }
+
         private void OnEnable()
         {
             _saveWorldAction.action.Enable();
@@ -85,7 +92,10 @@ namespace MT_MiencraftTask.World
             foreach (ChunkCoord coord in _dirtyChunks)
             {
                 if (_loadedChunks.TryGetValue(coord, out Chunk chunk))
+                {
                     chunk.RebuildMesh();
+                    TotalChunkRebuilds++;
+                }
             }
 
             _dirtyChunks.Clear();

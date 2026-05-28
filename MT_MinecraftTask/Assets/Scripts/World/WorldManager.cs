@@ -23,12 +23,16 @@ namespace MT_MiencraftTask.World
         [SerializeField] private CharacterController _playerController;
         [SerializeField] private float _playerRespawnHeightOffset = 3f;
 
+        [SerializeField] private int _maxChunksGeneratedPerFrame = 1;
+
         private const string SaveKey = "MinecraftDemo_WorldSave";
 
         private readonly Dictionary<ChunkCoord, Chunk> _loadedChunks = new();
         private readonly Dictionary<Vector3Int, EBlockType> _worldModifications = new();
         private readonly Queue<Chunk> _chunkPool = new();
         private readonly HashSet<ChunkCoord> _dirtyChunks = new();
+        private readonly Queue<ChunkCoord> _chunkGenerationQueue = new();
+        private readonly HashSet<ChunkCoord> _queuedChunks = new();
 
         private ChunkCoord _currentPlayerChunk;
 
@@ -69,6 +73,7 @@ namespace MT_MiencraftTask.World
         private void Update()
         {
             HandleSaveLoadInput();
+            ProcessChunkGenerationQueue();
 
             ChunkCoord newPlayerChunk = ChunkCoord.FromWorldPosition(_player.position);
 
@@ -110,6 +115,23 @@ namespace MT_MiencraftTask.World
                 LoadWorld();
         }
 
+        private void ProcessChunkGenerationQueue()
+        {
+            int generatedThisFrame = 0;
+
+            while (_chunkGenerationQueue.Count > 0 && generatedThisFrame < _maxChunksGeneratedPerFrame)
+            {
+                ChunkCoord coord = _chunkGenerationQueue.Dequeue();
+                _queuedChunks.Remove(coord);
+
+                if (_loadedChunks.ContainsKey(coord))
+                    continue;
+
+                CreateChunk(coord);
+                generatedThisFrame++;
+            }
+        }
+
         private void RefreshChunksAroundPlayer()
         {
             HashSet<ChunkCoord> neededChunks = new();
@@ -126,7 +148,7 @@ namespace MT_MiencraftTask.World
                     neededChunks.Add(coord);
 
                     if (!_loadedChunks.ContainsKey(coord))
-                        CreateChunk(coord);
+                        QueueChunkForGeneration(coord);
                 }
             }
 
@@ -166,6 +188,18 @@ namespace MT_MiencraftTask.World
 
             RebuildChunkAndNeighbors(coord);
 
+        }
+
+        private void QueueChunkForGeneration(ChunkCoord coord)
+        {
+            if (_loadedChunks.ContainsKey(coord))
+                return;
+
+            if (_queuedChunks.Contains(coord))
+                return;
+
+            _queuedChunks.Add(coord);
+            _chunkGenerationQueue.Enqueue(coord);
         }
 
         private void ReleaseChunk(Chunk chunk)

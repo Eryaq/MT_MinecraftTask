@@ -8,6 +8,8 @@ namespace MT_MiencraftTask.Player
     {
         private readonly Dictionary<EBlockType, int> _blocks = new();
 
+        public event System.Action InventoryChanged;
+
         public void Add(EBlockType type, int amount = 1)
         {
             if (type == EBlockType.Air)
@@ -16,6 +18,7 @@ namespace MT_MiencraftTask.Player
             _blocks.TryAdd(type, 0);
             _blocks[type] += amount;
 
+            InventoryChanged?.Invoke();
             Debug.Log($"Inventory: {type} = {_blocks[type]}");
         }
 
@@ -31,6 +34,8 @@ namespace MT_MiencraftTask.Player
                 return false;
 
             _blocks[type] -= amount;
+
+            InventoryChanged?.Invoke();
             Debug.Log($"Inventory: {type} = {_blocks[type]}");
 
             return true;

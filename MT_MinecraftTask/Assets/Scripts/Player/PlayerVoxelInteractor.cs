@@ -28,6 +28,10 @@ namespace MT_MiencraftTask.Player
         private bool _hasTargetBlock;
         private float _mineProgress;
 
+        public event System.Action SelectedBlockChanged;
+
+        public EBlockType SelectedPlacementBlock => _selectedPlacementBlock;
+
         private void OnEnable()
         {
             _mineAction.action.Enable();

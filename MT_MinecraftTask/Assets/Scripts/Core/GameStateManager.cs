@@ -1,3 +1,4 @@
+using MT_MiencraftTask.World;
 using System;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ namespace MT_MiencraftTask.Core
     public class GameStateManager : MonoBehaviour
     {
         public event Action<GameState> StateChanged;
+        [SerializeField] private WorldManager _worldManager;
 
         public GameState CurrentState { get; private set; }
 
@@ -14,9 +16,23 @@ namespace MT_MiencraftTask.Core
             SetState(GameState.MainMenu);
         }
 
+        private void Update()
+        {
+            if (CurrentState != GameState.Loading)
+                return;
+
+            if (_worldManager.IsInitialLoadingFinished)
+            {
+                _worldManager.MovePlayerAboveTerrain();
+                EnterGameplay();
+            }
+        }
+
         public void StartGame()
         {
             SetState(GameState.Loading);
+
+            _worldManager.BeginInitialLoading();
         }
 
         public void EnterGameplay()

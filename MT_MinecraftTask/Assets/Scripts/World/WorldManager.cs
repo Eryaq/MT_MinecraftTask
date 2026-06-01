@@ -34,8 +34,6 @@ namespace MT_MiencraftTask.World
         private readonly Queue<ChunkCoord> _chunkGenerationQueue = new();
         private readonly HashSet<ChunkCoord> _queuedChunks = new();
 
-        private ChunkCoord _currentPlayerChunk;
-
         private static readonly Vector2Int[] NeighborDirections =
         {
             new(0, 1),
@@ -44,14 +42,17 @@ namespace MT_MiencraftTask.World
             new(1, 0)
         };
 
+        private ChunkCoord _currentPlayerChunk;
+        private bool _isInitialLoading;
+
+
         public int LoadedChunkCount => _loadedChunks.Count;
         public int PooledChunkCount => _chunkPool.Count;
         public int DirtyChunkCount => _dirtyChunks.Count;
         public ChunkCoord CurrentPlayerChunk => _currentPlayerChunk;
 
         public int TotalChunkRebuilds { get; private set; }
-        public bool IsInitialWorldReady { get; private set; }
-        public float InitialLoadingProgress01 { get; private set; }
+        public bool IsInitialLoadingFinished { get; private set; }
 
         private void OnEnable()
         {
@@ -68,8 +69,6 @@ namespace MT_MiencraftTask.World
         private void Start()
         {
             _currentPlayerChunk = ChunkCoord.FromWorldPosition(_player.position);
-            RefreshChunksAroundPlayer();
-            MovePlayerAboveTerrain();
         }
 
         private void Update()
@@ -131,6 +130,12 @@ namespace MT_MiencraftTask.World
 
                 CreateChunk(coord);
                 generatedThisFrame++;
+            }
+
+            if (_isInitialLoading && _chunkGenerationQueue.Count == 0)
+            {
+                _isInitialLoading = false;
+                IsInitialLoadingFinished = true;
             }
         }
 
@@ -273,7 +278,7 @@ namespace MT_MiencraftTask.World
                 _dirtyChunks.Add(new ChunkCoord(chunk.Coord.X, chunk.Coord.Z + 1));
         }
 
-        private void MovePlayerAboveTerrain()
+        public void MovePlayerAboveTerrain()
         {
             Vector3 playerPosition = _player.position;
 
@@ -297,6 +302,16 @@ namespace MT_MiencraftTask.World
                     return;
                 }
             }
+        }
+
+        public void BeginInitialLoading()
+        {
+            IsInitialLoadingFinished = false;
+            _isInitialLoading = true;
+
+            _currentPlayerChunk = ChunkCoord.FromWorldPosition(_player.position);
+
+            RefreshChunksAroundPlayer();
         }
 
         #region LookUpMethods

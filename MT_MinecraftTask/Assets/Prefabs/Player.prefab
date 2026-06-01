@@ -43,8 +43,8 @@ Camera:
   m_GameObject: {fileID: 2257228239498731923}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0.69803923, g: 0.91764706, b: 0.89411765, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -66,7 +66,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 1000
+  far clip plane: 120
   field of view: 60
   orthographic: 0
   orthographic size: 5
@@ -151,6 +151,7 @@ GameObject:
   - component: {fileID: 5884010746326129012}
   - component: {fileID: 5219882654164877625}
   - component: {fileID: 2725474498314265986}
+  - component: {fileID: 1236562983751639567}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -212,6 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.FirstPersonController
   _cameraRoot: {fileID: 2657176519367898198}
+  _gameStateManager: {fileID: 0}
   _moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _lookAction: {fileID: -5630151704836100654, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _jumpAction: {fileID: -2099379676528639254, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -234,6 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.PlayerVoxelInteractor
   _camera: {fileID: 5125940190135209983}
+  _gameStateManager: {fileID: 0}
   _mineAction: {fileID: -8988080740392008953, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _placeAction: {fileID: 1037058831921611125, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   _selectStoneAction: {fileID: 7929011909142832261, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -273,6 +276,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 272cb36143a189c49ae697d66c014434, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.PlayerBlockInventory
+--- !u!114 &1236562983751639567
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4515224677835695378}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60e7391783b19ac418525468c6f8cb0a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MT_MiencraftTask.Player.CameraBob
+  _controller: {fileID: 3794032812249908567}
+  _cameraRoot: {fileID: 2657176519367898198}
+  _moveAction: {fileID: -1680190386980627800, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  _bobFrequency: 10
+  _bobAmplitude: 0.08
+  _returnSpeed: 10
 --- !u!1 &5306048949626605176
 GameObject:
   m_ObjectHideFlags: 0

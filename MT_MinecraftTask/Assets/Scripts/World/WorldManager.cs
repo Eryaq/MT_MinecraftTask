@@ -50,6 +50,8 @@ namespace MT_MiencraftTask.World
         public ChunkCoord CurrentPlayerChunk => _currentPlayerChunk;
 
         public int TotalChunkRebuilds { get; private set; }
+        public bool IsInitialWorldReady { get; private set; }
+        public float InitialLoadingProgress01 { get; private set; }
 
         private void OnEnable()
         {

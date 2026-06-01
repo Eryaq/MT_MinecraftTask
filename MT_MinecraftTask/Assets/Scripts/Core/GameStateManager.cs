@@ -119,12 +119,17 @@ namespace MT_MiencraftTask.Core
 
             Time.timeScale = state == GameState.Paused ? 0f : 1f;
 
+            ApplyCursorState(state);
+
+            StateChanged?.Invoke(state);
+        }
+
+        private void ApplyCursorState(GameState state)
+        {
             bool gameplay = state == GameState.Gameplay;
 
             Cursor.lockState = gameplay ? CursorLockMode.Locked : CursorLockMode.None;
             Cursor.visible = !gameplay;
-
-            StateChanged?.Invoke(state);
         }
 
         private void ResetPlayerToStartPosition()

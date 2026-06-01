@@ -1,3 +1,4 @@
+using MT_MiencraftTask.Core;
 using MT_MiencraftTask.Voxels;
 using MT_MiencraftTask.World;
 using UnityEngine;
@@ -9,6 +10,7 @@ namespace MT_MiencraftTask.Player
     {
         [Header("References")]
         [SerializeField] private Camera _camera;
+        [SerializeField] private GameStateManager _gameStateManager;
 
         [Header("Input")]
         [SerializeField] private InputActionReference _mineAction;
@@ -58,6 +60,9 @@ namespace MT_MiencraftTask.Player
 
         private void Update()
         {
+            if (_gameStateManager.CurrentState != GameState.Gameplay)
+                return;
+
             HandleBlockSelection();
             HandleMining();
             HandlePlacement();

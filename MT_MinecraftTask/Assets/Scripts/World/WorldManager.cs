@@ -44,7 +44,8 @@ namespace MT_MiencraftTask.World
 
         private ChunkCoord _currentPlayerChunk;
         private bool _isInitialLoading;
-
+        private int _initialChunksToLoad;
+        private int _initialChunksLoaded;
 
         public int LoadedChunkCount => _loadedChunks.Count;
         public int PooledChunkCount => _chunkPool.Count;
@@ -130,6 +131,9 @@ namespace MT_MiencraftTask.World
 
                 CreateChunk(coord);
                 generatedThisFrame++;
+
+                if (_isInitialLoading)
+                    _initialChunksLoaded++;
             }
 
             if (_isInitialLoading && _chunkGenerationQueue.Count == 0)
@@ -312,6 +316,20 @@ namespace MT_MiencraftTask.World
             _currentPlayerChunk = ChunkCoord.FromWorldPosition(_player.position);
 
             RefreshChunksAroundPlayer();
+
+            _initialChunksToLoad = _chunkGenerationQueue.Count;
+            _initialChunksLoaded = 0;
+        }
+
+        public float InitialLoadingProgress01
+        {
+            get
+            {
+                if (_initialChunksToLoad <= 0)
+                    return 1f;
+
+                return Mathf.Clamp01((float)_initialChunksLoaded / _initialChunksToLoad);
+            }
         }
 
         #region LookUpMethods

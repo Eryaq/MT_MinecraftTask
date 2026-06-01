@@ -1,6 +1,18 @@
+using MT_MiencraftTask.World;
+using TMPro;
 using UnityEngine;
 
-public class LoadingScreenUI
+namespace MT_MiencraftTask.UI
 {
-    
+    public class LoadingScreenUI : MonoBehaviour
+    {
+        [SerializeField] private WorldManager _worldManager;
+        [SerializeField] private TMP_Text _loadingText;
+
+        private void Update()
+        {
+            int percent = Mathf.RoundToInt(_worldManager.InitialLoadingProgress01 * 100f);
+            _loadingText.text = $"Loading world... {percent}%";
+        }
+    }
 }

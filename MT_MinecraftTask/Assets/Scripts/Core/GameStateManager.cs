@@ -1,13 +1,16 @@
 using MT_MiencraftTask.World;
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace MT_MiencraftTask.Core
 {
     public class GameStateManager : MonoBehaviour
     {
         public event Action<GameState> StateChanged;
+
         [SerializeField] private WorldManager _worldManager;
+        [SerializeField] private InputActionReference _pauseAction;
 
         public GameState CurrentState { get; private set; }
 
@@ -18,6 +21,8 @@ namespace MT_MiencraftTask.Core
 
         private void Update()
         {
+            HandlePauseInput();
+
             if (CurrentState != GameState.Loading)
                 return;
 
@@ -26,6 +31,27 @@ namespace MT_MiencraftTask.Core
                 _worldManager.MovePlayerAboveTerrain();
                 EnterGameplay();
             }
+        }
+
+        private void OnEnable()
+        {
+            _pauseAction.action.Enable();
+        }
+
+        private void OnDisable()
+        {
+            _pauseAction.action.Disable();
+        }
+
+        private void HandlePauseInput()
+        {
+            if (!_pauseAction.action.WasPressedThisFrame())
+                return;
+
+            if (CurrentState == GameState.Gameplay)
+                PauseGame();
+            else if (CurrentState == GameState.Paused)
+                ResumeGame();
         }
 
         public void StartGame()

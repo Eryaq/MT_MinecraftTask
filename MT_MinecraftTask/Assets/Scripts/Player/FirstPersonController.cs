@@ -1,3 +1,4 @@
+using MT_MiencraftTask.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ namespace MT_MiencraftTask.Player
     {
         [Header("References")]
         [SerializeField] private Transform _cameraRoot;
+        [SerializeField] private GameStateManager _gameStateManager;
 
         [Header("Input")]
         [SerializeField] private InputActionReference _moveAction;
@@ -52,6 +54,9 @@ namespace MT_MiencraftTask.Player
 
         private void Update()
         {
+            if (_gameStateManager.CurrentState != GameState.Gameplay)
+                return;
+
             HandleLook();
             HandleMovement();
         }

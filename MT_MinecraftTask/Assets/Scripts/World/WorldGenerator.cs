@@ -77,5 +77,11 @@ namespace MT_MiencraftTask.World
 
             return EBlockType.Grass;
         }
+
+        public void RandomizeSeed()
+        {
+            int newSeed = Random.Range(int.MinValue, int.MaxValue);
+            InitializeSeed(newSeed);
+        }
     }
 }

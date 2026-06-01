@@ -310,6 +310,11 @@ namespace MT_MiencraftTask.World
 
         public void BeginInitialLoading()
         {
+            ClearWorld();
+
+            _worldGenerator.RandomizeSeed();
+            _worldModifications.Clear();
+
             IsInitialLoadingFinished = false;
             _isInitialLoading = true;
 

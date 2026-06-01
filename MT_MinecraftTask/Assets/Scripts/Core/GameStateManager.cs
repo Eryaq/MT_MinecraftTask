@@ -61,6 +61,11 @@ namespace MT_MiencraftTask.Core
 
         public void StartGame()
         {
+            ResetPlayerToStartPosition();
+
+            if (_inventory != null)
+                _inventory.Clear();
+
             SetState(GameState.Loading);
 
             _worldManager.BeginInitialLoading();
@@ -94,14 +99,7 @@ namespace MT_MiencraftTask.Core
             if (_inventory != null)
                 _inventory.Clear();
 
-            if (_playerController != null)
-                _playerController.enabled = false;
-
-            if (_player != null)
-                _player.position = _playerStartPosition;
-
-            if (_playerController != null)
-                _playerController.enabled = true;
+            ResetPlayerToStartPosition();
 
             SetState(GameState.MainMenu);
         }
@@ -127,6 +125,18 @@ namespace MT_MiencraftTask.Core
             Cursor.visible = !gameplay;
 
             StateChanged?.Invoke(state);
+        }
+
+        private void ResetPlayerToStartPosition()
+        {
+            if (_playerController != null)
+                _playerController.enabled = false;
+
+            if (_player != null)
+                _player.position = _playerStartPosition;
+
+            if (_playerController != null)
+                _playerController.enabled = true;
         }
     }
 }

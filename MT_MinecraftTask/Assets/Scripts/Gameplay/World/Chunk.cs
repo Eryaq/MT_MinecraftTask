@@ -1,7 +1,7 @@
-using MT_MiencraftTask.Voxels;
+using MT_MinecraftTask.Voxels;
 using UnityEngine;
 
-namespace MT_MiencraftTask.World
+namespace MT_MinecraftTask.World
 {
     [RequireComponent(typeof(MeshFilter), typeof(MeshRenderer), typeof(MeshCollider))]
     public class Chunk : MonoBehaviour

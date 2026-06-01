@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MT_MiencraftTask.Voxels
+namespace MT_MinecraftTask.Voxels
 {
     [CreateAssetMenu(menuName = "Minecraft Demo/Block Database")]
     public class BlockDatabase : ScriptableObject

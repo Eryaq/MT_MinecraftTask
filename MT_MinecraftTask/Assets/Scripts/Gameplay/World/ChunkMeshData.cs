@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MT_MiencraftTask.World
+namespace MT_MinecraftTask.World
 {
     public sealed class ChunkMeshData
     {

@@ -1,9 +1,9 @@
-using MT_MiencraftTask.World;
+using MT_MinecraftTask.World;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MT_MiencraftTask
+namespace MT_MinecraftTask
 {
     [Serializable]
     public class WorldSaveData

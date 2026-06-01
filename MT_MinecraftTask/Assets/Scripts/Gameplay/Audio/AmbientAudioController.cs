@@ -1,7 +1,7 @@
-using MT_MiencraftTask.Core;
+using MT_MinecraftTask.Core;
 using UnityEngine;
 
-namespace MT_MiencraftTask.Audio
+namespace MT_MinecraftTask.Audio
 {
     public class AmbientAudioController : MonoBehaviour
     {

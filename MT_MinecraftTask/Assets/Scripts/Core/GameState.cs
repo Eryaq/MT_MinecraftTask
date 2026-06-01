@@ -1,4 +1,4 @@
-namespace MT_MiencraftTask.Core
+namespace MT_MinecraftTask.Core
 {
     public enum GameState
     {

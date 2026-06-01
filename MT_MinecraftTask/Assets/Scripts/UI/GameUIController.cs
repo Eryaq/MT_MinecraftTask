@@ -1,7 +1,7 @@
-using MT_MiencraftTask.Core;
+using MT_MinecraftTask.Core;
 using UnityEngine;
 
-namespace MT_MiencraftTask.UI
+namespace MT_MinecraftTask.UI
 {
     public class GameUIController : MonoBehaviour
     {

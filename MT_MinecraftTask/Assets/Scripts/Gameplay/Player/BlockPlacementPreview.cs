@@ -1,9 +1,9 @@
-using MT_MiencraftTask.Voxels;
-using MT_MiencraftTask.World;
+using MT_MinecraftTask.Voxels;
+using MT_MinecraftTask.World;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.Player
+namespace MT_MinecraftTask.Player
 {
     public class BlockPlacementPreview : MonoBehaviour
     {

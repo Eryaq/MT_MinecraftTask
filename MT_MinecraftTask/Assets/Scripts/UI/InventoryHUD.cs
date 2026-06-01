@@ -1,9 +1,9 @@
-using MT_MiencraftTask.Player;
-using MT_MiencraftTask.Voxels;
+using MT_MinecraftTask.Player;
+using MT_MinecraftTask.Voxels;
 using TMPro;
 using UnityEngine;
 
-namespace MT_MiencraftTask.UI
+namespace MT_MinecraftTask.UI
 {
     public class InventoryHUD : MonoBehaviour
     {

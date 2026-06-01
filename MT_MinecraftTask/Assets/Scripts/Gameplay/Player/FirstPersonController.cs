@@ -1,8 +1,8 @@
-using MT_MiencraftTask.Core;
+using MT_MinecraftTask.Core;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.Player
+namespace MT_MinecraftTask.Player
 {
     [RequireComponent(typeof(CharacterController))]
     public class FirstPersonController : MonoBehaviour

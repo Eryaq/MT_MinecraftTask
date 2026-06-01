@@ -1,9 +1,9 @@
-using MT_MiencraftTask.World;
+using MT_MinecraftTask.World;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.UI
+namespace MT_MinecraftTask.UI
 {
     public class DebugOverlayHUD : MonoBehaviour
     {

@@ -1,0 +1,19 @@
+{
+    "name": "MT_MinecraftTask.UI",
+    "rootNamespace": "",
+    "references": [
+        "GUID:707d288933ff29d4ba8569af9ed1c20b",
+        "GUID:58acdfe302515e3499d4f3ed2717a5fb",
+        "GUID:6055be8ebefd69e48b49212b09b47b2f",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

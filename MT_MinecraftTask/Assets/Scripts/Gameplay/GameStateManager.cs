@@ -1,10 +1,10 @@
-using MT_MiencraftTask.Player;
-using MT_MiencraftTask.World;
+using MT_MinecraftTask.Player;
+using MT_MinecraftTask.World;
 using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.Core
+namespace MT_MinecraftTask.Core
 {
     public class GameStateManager : MonoBehaviour
     {

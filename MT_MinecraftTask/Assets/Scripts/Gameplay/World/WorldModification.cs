@@ -1,8 +1,8 @@
-using MT_MiencraftTask.Voxels;
+using MT_MinecraftTask.Voxels;
 using System;
 using UnityEngine;
 
-namespace MT_MiencraftTask.World
+namespace MT_MinecraftTask.World
 {
     [Serializable]
     public struct WorldModification

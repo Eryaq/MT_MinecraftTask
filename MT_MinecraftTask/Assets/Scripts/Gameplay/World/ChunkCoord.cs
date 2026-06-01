@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-namespace MT_MiencraftTask.World
+namespace MT_MinecraftTask.World
 {
     [Serializable]
     public readonly struct ChunkCoord : IEquatable<ChunkCoord>

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace MT_MiencraftTask.Voxels
+namespace MT_MinecraftTask.Voxels
 {
     [System.Serializable]
     public class BlockDefinition

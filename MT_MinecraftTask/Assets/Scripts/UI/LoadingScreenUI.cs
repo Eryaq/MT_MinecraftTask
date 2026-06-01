@@ -1,8 +1,8 @@
-using MT_MiencraftTask.World;
+using MT_MinecraftTask.World;
 using TMPro;
 using UnityEngine;
 
-namespace MT_MiencraftTask.UI
+namespace MT_MinecraftTask.UI
 {
     public class LoadingScreenUI : MonoBehaviour
     {

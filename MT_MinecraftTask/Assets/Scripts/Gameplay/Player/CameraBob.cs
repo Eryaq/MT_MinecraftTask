@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.Player
+namespace MT_MinecraftTask.Player
 {
     public class CameraBob : MonoBehaviour
     {

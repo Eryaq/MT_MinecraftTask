@@ -1,8 +1,8 @@
-using MT_MiencraftTask.Player;
+using MT_MinecraftTask.Player;
 using TMPro;
 using UnityEngine;
 
-namespace MT_MiencraftTask.UI
+namespace MT_MinecraftTask.UI
 {
     public class MiningProgressHUD : MonoBehaviour
     {

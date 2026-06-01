@@ -1,9 +1,9 @@
-using MT_MiencraftTask.Voxels;
+using MT_MinecraftTask.Voxels;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-namespace MT_MiencraftTask.World
+namespace MT_MinecraftTask.World
 {
     public class WorldManager : MonoBehaviour
     {

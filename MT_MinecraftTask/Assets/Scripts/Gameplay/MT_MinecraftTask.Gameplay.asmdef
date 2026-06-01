@@ -1,0 +1,17 @@
+{
+    "name": "MT_MinecraftTask.Gameplay",
+    "rootNamespace": "",
+    "references": [
+        "GUID:707d288933ff29d4ba8569af9ed1c20b",
+        "GUID:75469ad4d38634e559750d17036d5f7c"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

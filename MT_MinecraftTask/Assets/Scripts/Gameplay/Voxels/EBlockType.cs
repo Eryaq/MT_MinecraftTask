@@ -1,4 +1,4 @@
-namespace MT_MiencraftTask.Voxels
+namespace MT_MinecraftTask.Voxels
 {
     public enum EBlockType : byte
     {

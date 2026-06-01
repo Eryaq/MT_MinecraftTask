@@ -1900,10 +1900,6 @@ PrefabInstance:
       propertyPath: _audioSource
       value: 
       objectReference: {fileID: 589552158}
-    - target: {fileID: 5643779892052003433, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
-      propertyPath: _stepInterval
-      value: 0.58
-      objectReference: {fileID: 0}
     - target: {fileID: 5884010746326129012, guid: 8f6b71c44f1b96a48ae78f5bd0245029, type: 3}
       propertyPath: _worldManager
       value: 

@@ -1,8 +1,8 @@
-using MT_MiencraftTask.Voxels;
+using MT_MinecraftTask.Voxels;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace MT_MiencraftTask.Player
+namespace MT_MinecraftTask.Player
 {
     public class PlayerBlockInventory : MonoBehaviour
     {

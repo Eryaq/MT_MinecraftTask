@@ -12,6 +12,15 @@ The focus of the project is implementation quality and performance rather than g
 
 The world is procedurally generated using Perlin noise and supports runtime voxel editing, chunk streaming, inventory management, and save/load functionality.
 
+## Project Structure
+
+The project uses Assembly Definitions to keep code organized and compilation boundaries explicit.
+
+Assemblies:
+- MT_MinecraftTask.Core
+- MT_MinecraftTask.Gameplay
+- MT_MinecraftTask.UI
+
 ## Features
 
 ## World Generation
@@ -46,6 +55,9 @@ The world is procedurally generated using Perlin noise and supports runtime voxe
 - Block selection using hotkeys (1/2/3)
 - Save and load system
 - Player position persistence
+- Ambient audio
+- Footstep audio
+- Camera bob
 
 ## UI / Debug
 
@@ -55,6 +67,9 @@ The world is procedurally generated using Perlin noise and supports runtime voxe
 - Toggleable debug overlay (F3)
 - Placement preview toggle (B)
 - Distance fog to hide chunk streaming
+- Main menu
+- Loading screen
+- Pause menu
 
 ## Controls
 

@@ -332,6 +332,22 @@ namespace MT_MiencraftTask.World
             }
         }
 
+        public void ClearWorld()
+        {
+            foreach (Chunk chunk in _loadedChunks.Values)
+                ReleaseChunk(chunk);
+
+            _loadedChunks.Clear();
+            _chunkGenerationQueue.Clear();
+            _queuedChunks.Clear();
+            _dirtyChunks.Clear();
+
+            IsInitialLoadingFinished = false;
+            _isInitialLoading = false;
+            _initialChunksToLoad = 0;
+            _initialChunksLoaded = 0;
+        }
+
         #region LookUpMethods
 
         public bool TryGetChunk(ChunkCoord coord, out Chunk chunk)

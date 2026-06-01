@@ -45,5 +45,11 @@ namespace MT_MiencraftTask.Player
         {
             return _blocks.GetValueOrDefault(type, 0);
         }
+
+        public void Clear()
+        {
+            _blocks.Clear();
+            InventoryChanged?.Invoke();
+        }
     }
 }

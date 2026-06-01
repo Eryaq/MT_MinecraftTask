@@ -1,3 +1,4 @@
+using MT_MiencraftTask.Player;
 using MT_MiencraftTask.World;
 using System;
 using UnityEngine;
@@ -11,6 +12,10 @@ namespace MT_MiencraftTask.Core
 
         [SerializeField] private WorldManager _worldManager;
         [SerializeField] private InputActionReference _pauseAction;
+        [SerializeField] private Transform _player;
+        [SerializeField] private PlayerBlockInventory _inventory;
+        [SerializeField] private Vector3 _playerStartPosition = new(0f, 80f, 0f);
+        [SerializeField] private CharacterController _playerController;
 
         public GameState CurrentState { get; private set; }
 
@@ -84,6 +89,20 @@ namespace MT_MiencraftTask.Core
 
         public void ReturnToMainMenu()
         {
+            _worldManager.ClearWorld();
+
+            if (_inventory != null)
+                _inventory.Clear();
+
+            if (_playerController != null)
+                _playerController.enabled = false;
+
+            if (_player != null)
+                _player.position = _playerStartPosition;
+
+            if (_playerController != null)
+                _playerController.enabled = true;
+
             SetState(GameState.MainMenu);
         }
 
